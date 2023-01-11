@@ -64,7 +64,8 @@ const TaskList = ({ showSetting, setShowSetting }) => {
           whileTap={{ scale: 0.9 }}
           className='btn'
           onClick={() => setShowSetting(!showSetting)}
-        >{showSetting ? "Show Setting" : "Hide Setting"}</motion.button>
+        >{showSetting ? "Show Setting" : "Hide Setting"}
+        </motion.button>
       </header>
       <div className='my-4'>
         {tasks.isEmpty()
@@ -96,23 +97,29 @@ const TaskList = ({ showSetting, setShowSetting }) => {
           : (
             <ul style={{ listStyle: 'none' }}>
               {tasks.value.map((task, index) => (
-                index < maxNumTask && <li key={index} style={{ listStyle: 'none' }}>
-                  <input
-                    onChange={() => { }}
-                    type="checkbox"
-                    onClick={() => {
-                      task.completed ? numTasks.increment() : numTasks.decrement()
-                      task.completed = !task.completed
-                      // tasks.remove(index);
-                    }}
-                    checked={taskCompleted(task)}
-                  />
-                  <span className={`ml-1 text-gray-800 dark:text-gray-100 text-sm italic
-                  ${task.completed && "line-through"}`}>
-                    {task.name}
-                  </span>
-
-                </li>
+                index < maxNumTask &&
+                <motion.li
+                  key={index}
+                  style={{ listStyle: 'none' }}
+                  initial={{ x: "20vw" }} animate={{ x: 0 }} transition={{duration: 0.7 }}
+                >
+                  <label>
+                    <input
+                      onChange={() => { }}
+                      type="checkbox"
+                      onClick={() => {
+                        task.completed ? numTasks.increment() : numTasks.decrement()
+                        task.completed = !task.completed
+                        // tasks.remove(index);
+                      }}
+                      checked={taskCompleted(task)}
+                    />
+                    <span className={`ml-1 text-gray-800 dark:text-gray-100 text-sm italic
+                      ${task.completed && "line-through"}`}>
+                      {task.name}
+                    </span>
+                  </label>
+                </motion.li>
               ))}
             </ul>
           )}
